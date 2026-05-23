@@ -1,0 +1,21 @@
+{
+  "encounter_id": "demo-001",
+  "template": "soap",
+  "segments": [
+    {
+      "id": "seg_0001",
+      "start": 0.0,
+      "end": 3.2,
+      "speaker": "patient",
+      "text": "我这两天咳嗽，晚上有点发热。"
+    },
+    {
+      "id": "seg_0002",
+      "start": 3.5,
+      "end": 8.1,
+      "speaker": "doctor",
+      "text": "建议先做血常规和胸片检查，注意休息，多喝水。"
+    }
+  ]
+}
+

@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+
+# Local runtime files
+.env
+*.log
+logs/
+outputs/
+tmp/
+code/service/nohup.out
+
+# Local protected data. Do not commit patient audio, speaker embeddings, or PHI.
+audio/
+speaker_embedding/
+data/*
+!data/.gitkeep
+
+# Model artifacts are downloaded locally.
+pretrained_models/*
+!pretrained_models/download_models.py
+
+# Historical development artifacts from the source project.
+code/service/test_api/
+code/service/backend/all.md
+code/service/backend/api/API_DOCUMENTATION.md
+code/service/backend/api/*ASR*.md
+
+# Editors and OS files
+.idea/
+.vscode/
+.cursor/
+Thumbs.db
+.DS_Store
