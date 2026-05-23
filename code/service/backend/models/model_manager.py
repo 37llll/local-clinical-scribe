@@ -7,7 +7,7 @@
 - 支持批量加载和重新加载模型
 """
 import warnings
-from funasr import AutoModel as FunASRAutoModel
+from typing import Any
 
 warnings.filterwarnings('ignore')
 
@@ -19,6 +19,20 @@ from config import (
 from ..utils.logger_manager import LoggerManager
 
 logger = LoggerManager.get_backend_logger()
+
+
+def _get_funasr_auto_model():
+    """Import FunASR only when an ASR model is actually requested."""
+    try:
+        from funasr import AutoModel
+
+        return AutoModel
+    except ModuleNotFoundError as exc:
+        raise ModuleNotFoundError(
+            "FunASR is required for ASR/speaker endpoints. Install runtime "
+            "dependencies with `pip install -r requirements_cpu.txt` and "
+            "download models before using audio endpoints."
+        ) from exc
 
 
 class ModelManager:
@@ -53,7 +67,7 @@ class ModelManager:
     
     # ========== 基础模型获取方法 ==========
     
-    def get_vad_model(self) -> FunASRAutoModel:
+    def get_vad_model(self) -> Any:
         """
         获取VAD模型（统一管理）
         
@@ -62,11 +76,12 @@ class ModelManager:
         """
         if not hasattr(self, '_vad_model') or self._vad_model is None:
             logger.info("🔄 加载VAD模型...")
+            FunASRAutoModel = _get_funasr_auto_model()
             self._vad_model = FunASRAutoModel(model=VAD_MODEL_DIR, device=DEVICE, disable_update=True, disable_pbar=True)
             logger.info("✅ VAD模型加载完成")
         return self._vad_model
     
-    def get_sv_model(self) -> FunASRAutoModel:
+    def get_sv_model(self) -> Any:
         """
         获取说话人识别模型（统一管理）
         
@@ -75,11 +90,12 @@ class ModelManager:
         """
         if not hasattr(self, '_sv_model') or self._sv_model is None:
             logger.info("🔄 加载说话人识别模型...")
+            FunASRAutoModel = _get_funasr_auto_model()
             self._sv_model = FunASRAutoModel(model=SV_MODEL_DIR, device=DEVICE, disable_update=True, disable_pbar=True)
             logger.info("✅ 说话人识别模型加载完成")
         return self._sv_model
     
-    def get_asr_offline_model(self) -> FunASRAutoModel:
+    def get_asr_offline_model(self) -> Any:
         """
         获取非流式ASR模型（统一管理）
         
@@ -88,11 +104,12 @@ class ModelManager:
         """
         if not hasattr(self, '_asr_offline_model') or self._asr_offline_model is None:
             logger.info("🔄 加载非流式ASR模型...")
+            FunASRAutoModel = _get_funasr_auto_model()
             self._asr_offline_model = FunASRAutoModel(model=ASR_MODEL_DIR, device=DEVICE, disable_update=True, disable_pbar=True)
             logger.info("✅ 非流式ASR模型加载完成")
         return self._asr_offline_model
     
-    def get_asr_online_model(self) -> FunASRAutoModel:
+    def get_asr_online_model(self) -> Any:
         """
         获取流式ASR模型（统一管理）
         
@@ -101,11 +118,12 @@ class ModelManager:
         """
         if not hasattr(self, '_asr_online_model') or self._asr_online_model is None:
             logger.info("🔄 加载流式ASR模型...")
+            FunASRAutoModel = _get_funasr_auto_model()
             self._asr_online_model = FunASRAutoModel(model=ASR_ONLINE_MODEL_DIR, device=DEVICE, disable_update=True, disable_pbar=True)
             logger.info("✅ 流式ASR模型加载完成")
         return self._asr_online_model
     
-    def get_punc_model(self) -> FunASRAutoModel:
+    def get_punc_model(self) -> Any:
         """
         获取标点恢复模型（统一管理）
         
@@ -114,6 +132,7 @@ class ModelManager:
         """
         if not hasattr(self, '_punc_model') or self._punc_model is None:
             logger.info("🔄 加载标点恢复模型...")
+            FunASRAutoModel = _get_funasr_auto_model()
             self._punc_model = FunASRAutoModel(model=PUNC_MODEL_DIR, device=DEVICE, disable_update=True, disable_pbar=True)
             logger.info("✅ 标点恢复模型加载完成")
         return self._punc_model
@@ -135,7 +154,7 @@ class ModelManager:
             logger.info("✅ 文本纠错器加载完成")
         return self._text_corrector
     
-    def get_asr_offline_with_vad_punc(self) -> FunASRAutoModel:
+    def get_asr_offline_with_vad_punc(self) -> Any:
         """
         获取组合的非流式ASR模型（包含VAD+ASR+PUNC）
         
@@ -148,6 +167,7 @@ class ModelManager:
         """
         if not hasattr(self, '_asr_offline_combined') or self._asr_offline_combined is None:
             logger.info("🔄 加载组合的非流式ASR模型（VAD+ASR+PUNC）...")
+            FunASRAutoModel = _get_funasr_auto_model()
             self._asr_offline_combined = FunASRAutoModel(
                 model=ASR_MODEL_DIR,
                 vad_model=VAD_MODEL_DIR,

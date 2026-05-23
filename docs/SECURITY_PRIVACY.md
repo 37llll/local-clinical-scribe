@@ -17,8 +17,9 @@ Runtime data defaults to:
 
 - `data/audio`
 - `data/speaker_embedding`
+- `data/encounters`
 
-Both are ignored by Git.
+All are ignored by Git.
 
 ## Product Boundary
 
@@ -36,4 +37,4 @@ For a real deployment, add:
 - retention policy
 - consent workflow
 - backup and deletion workflow
-
+- PHI-aware export handling

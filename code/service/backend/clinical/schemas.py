@@ -1,4 +1,4 @@
-"""Pydantic schemas for structured clinical note drafting."""
+"""Pydantic schemas for structured clinical note drafting and review."""
 
 from typing import Any, Dict, List, Optional
 
@@ -75,4 +75,48 @@ class ClinicalNoteDraft(BaseModel):
         "This is a documentation draft generated from the transcript. "
         "A licensed clinician must review, edit, and approve it before use."
     )
+
+
+class ClinicalNoteFinalizeRequest(BaseModel):
+    """Clinician-reviewed final note payload."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    encounter_id: str
+    sections: List[ClinicalNoteSection]
+    reviewer: Optional[str] = None
+    review_notes: Optional[str] = None
+
+    @model_validator(mode="after")
+    def require_sections(self):
+        if not self.sections:
+            raise ValueError("At least one reviewed section is required.")
+        return self
+
+
+class EncounterRecord(BaseModel):
+    """Persisted encounter record."""
+
+    model_config = ConfigDict(extra="allow")
+
+    encounter_id: str
+    status: str
+    created_at: str
+    updated_at: str
+    draft: ClinicalNoteDraft
+    transcript: Dict[str, Any] = Field(default_factory=dict)
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+    finalized_note: Optional[Dict[str, Any]] = None
+    exports: Dict[str, Any] = Field(default_factory=dict)
+
+
+class EncounterSummary(BaseModel):
+    """Small record used by list endpoints."""
+
+    encounter_id: str
+    status: str
+    created_at: str
+    updated_at: str
+    template: str
+    section_count: int
 

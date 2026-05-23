@@ -32,6 +32,9 @@ EMBEDDING_DIR = os.environ.get(
     "EMBEDDING_DIR", os.path.join(PROJECT_ROOT, "data", "speaker_embedding")
 )
 AUDIO_DIR = os.environ.get("AUDIO_DIR", os.path.join(PROJECT_ROOT, "data", "audio"))
+ENCOUNTER_DIR = os.environ.get(
+    "ENCOUNTER_DIR", os.path.join(PROJECT_ROOT, "data", "encounters")
+)
 
 # 设备配置（Docker 下可通过环境变量 CUDA_DEVICE 传入，如 cuda:0）
 _PREFERRED_DEVICE = os.environ.get(

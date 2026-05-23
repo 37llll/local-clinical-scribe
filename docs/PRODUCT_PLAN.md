@@ -18,30 +18,35 @@ workflow with transcript evidence and local data control.
 
 ## v0.2 Scope
 
-- Build a clinician review UI.
-- Add editable sections and finalization state.
-- Export Markdown, DOCX, and JSON.
 - Store encounters locally with audit-friendly metadata.
+- Add clinician finalization state.
+- Export Markdown and JSON.
+- Keep DOCX and browser-based review UI for v0.3.
 
 ## v0.3 Scope
+
+- Build a clinician review UI.
+- Add editable sections in the browser.
+- Add DOCX export.
+- Add evidence viewer with segment playback hooks.
+
+## v0.4 Scope
 
 - Add quality metrics:
   - ASR word/character error rate hooks.
   - diarization accuracy hooks.
   - clinician edit distance.
   - unsupported claim checks.
-- Add evidence viewer with segment playback hooks.
 
-## v0.4 Scope
+## v0.5 Scope
 
 - Add optional LLM-backed structuring.
 - Enforce JSON schema validation.
 - Require evidence ids for every generated statement.
 - Add "not mentioned" and "uncertain" handling.
 
-## v0.5 Scope
+## v0.6 Scope
 
 - Add FHIR-oriented export.
 - Add webhooks and API keys.
 - Add deployment recipes for private clinical environments.
-

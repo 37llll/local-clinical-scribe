@@ -10,8 +10,9 @@ flowchart LR
     D --> E["Speaker diarization"]
     E --> F["Transcript segments"]
     F --> G["Clinical note draft"]
-    G --> H["Clinician review"]
-    H --> I["Export"]
+    G --> H["Local encounter store"]
+    H --> I["Clinician review/finalize"]
+    I --> J["Export"]
 ```
 
 ## Core Modules
@@ -21,6 +22,7 @@ flowchart LR
 - `code/service/backend/services`: API-facing service classes.
 - `code/service/backend/models`: model manager and text corrector.
 - `code/service/backend/clinical`: structured note schemas and draft generator.
+- `data/encounters`: local JSON records for drafts, final notes, and exports.
 
 ## v0.1 Safety Design
 
@@ -30,3 +32,9 @@ flowchart LR
 - Missing facts are marked as missing.
 - Every populated section includes transcript quotes.
 
+## v0.2 Persistence Design
+
+- Draft generation saves an encounter record automatically.
+- Finalization stores clinician-reviewed sections separately from the draft.
+- Markdown export prefers finalized content when available.
+- JSON export returns the full local encounter record.

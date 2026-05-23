@@ -19,6 +19,7 @@ def main():
     request = ClinicalNoteRequest(**payload)
     draft = ClinicalNoteDraftGenerator().generate(request)
 
+    assert draft.encounter_id == "demo-001"
     assert draft.sections
     assert any(section.evidence for section in draft.sections)
     assert draft.status == "draft_requires_clinician_review"

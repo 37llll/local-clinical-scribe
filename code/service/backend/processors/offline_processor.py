@@ -15,7 +15,11 @@
 import numpy as np
 from typing import Any, Dict, List, Optional, Tuple
 
-from funasr.utils.vad_utils import merge_vad, slice_padding_audio_samples
+try:
+    from funasr.utils.vad_utils import merge_vad, slice_padding_audio_samples
+except ModuleNotFoundError:
+    merge_vad = None
+    slice_padding_audio_samples = None
 
 from ..models.model_manager import ModelManager
 from .speaker_processor import (
@@ -68,6 +72,12 @@ class VADSegmentProcessor:
 
         logger.info(f"[VAD] 原始检测到 {len(vad_segments_ms)} 个片段")
 
+        if merge_vad is None:
+            raise ModuleNotFoundError(
+                "FunASR is required for offline VAD. Install runtime dependencies "
+                "before using audio endpoints."
+            )
+
         merged_segments_ms = merge_vad(
             vad_segments_ms,
             max_length=max_segment_length_ms,
@@ -119,6 +129,12 @@ class VADSegmentProcessor:
         """
         if not segments_ms:
             return [], []
+
+        if slice_padding_audio_samples is None:
+            raise ModuleNotFoundError(
+                "FunASR is required for audio slicing. Install runtime dependencies "
+                "before using audio endpoints."
+            )
 
         vad_segments_for_slice = [((seg[0], seg[1]),) for seg in segments_ms]
 
