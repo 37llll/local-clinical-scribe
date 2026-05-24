@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1 - 2026-05-24
+
+- Fixed public CI lightweight dependency set by adding `python-multipart`.
+
 ## 0.3.0 - 2026-05-24
 
 - Prepared repository for public visibility.
