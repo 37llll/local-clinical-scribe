@@ -32,12 +32,18 @@ workflow with transcript evidence and local data control.
 
 ## v0.4 Scope
 
-- Build a clinician review UI.
+- Build a first-party browser workbench.
 - Add editable sections in the browser.
+- Add finalize and export controls.
+- Add encounter list and runtime capability display.
+
+## v0.5 Scope
+
+- Add richer export templates.
 - Add DOCX export.
 - Add evidence viewer with segment playback hooks.
 
-## v0.5 Scope
+## v0.6 Scope
 
 - Add quality metrics:
   - ASR word/character error rate hooks.
@@ -45,14 +51,14 @@ workflow with transcript evidence and local data control.
   - clinician edit distance.
   - unsupported claim checks.
 
-## v0.6 Scope
+## v0.7 Scope
 
 - Add optional LLM-backed structuring.
 - Enforce JSON schema validation.
 - Require evidence ids for every generated statement.
 - Add "not mentioned" and "uncertain" handling.
 
-## v0.7 Scope
+## v0.8 Scope
 
 - Add FHIR-oriented export.
 - Add webhooks and API keys.

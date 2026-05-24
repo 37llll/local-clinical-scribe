@@ -22,6 +22,7 @@ flowchart LR
 - `code/service/backend/services`: API-facing service classes.
 - `code/service/backend/models`: model manager and text corrector.
 - `code/service/backend/clinical`: structured note schemas and draft generator.
+- `code/service/web`: first-party static browser workbench served at `/app`.
 - `data/encounters`: local JSON records for drafts, final notes, and exports.
 
 ## v0.1 Safety Design
@@ -38,3 +39,11 @@ flowchart LR
 - Finalization stores clinician-reviewed sections separately from the draft.
 - Markdown export prefers finalized content when available.
 - JSON export returns the full local encounter record.
+
+## v0.4 Workbench Design
+
+- FastAPI serves static product assets from `/assets`.
+- `/app` loads the workbench without a separate frontend build step.
+- The browser UI uses the same public REST endpoints as external clients.
+- The workbench supports draft generation, section editing, finalization,
+  Markdown/JSON export, saved encounter browsing, and runtime capability checks.

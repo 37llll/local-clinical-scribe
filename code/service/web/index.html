@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Local Clinical Scribe</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">LC</div>
+          <div>
+            <h1>Local Clinical Scribe</h1>
+            <p id="serviceState">Checking service</p>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="nav-item active" data-view="workspace">Workspace</button>
+          <button class="nav-item" data-view="encounters">Encounters</button>
+          <button class="nav-item" data-view="settings">Runtime</button>
+        </nav>
+
+        <div class="runtime-panel">
+          <div class="runtime-row">
+            <span>Clinical notes</span>
+            <strong id="coreStatus">Ready</strong>
+          </div>
+          <div class="runtime-row">
+            <span>Audio ASR</span>
+            <strong id="audioStatus">Unknown</strong>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <section class="topbar">
+          <div>
+            <h2 id="viewTitle">Workspace</h2>
+            <p id="viewSubtitle">Draft, review, finalize, export.</p>
+          </div>
+          <div class="top-actions">
+            <a class="ghost-link" href="/docs" target="_blank" rel="noreferrer">API</a>
+            <button id="refreshButton" class="button secondary" type="button">Refresh</button>
+          </div>
+        </section>
+
+        <section id="workspaceView" class="view active">
+          <div class="workspace-grid">
+            <section class="panel input-panel">
+              <div class="panel-heading">
+                <h3>Transcript</h3>
+                <button id="loadDemoButton" class="button secondary" type="button">Demo</button>
+              </div>
+              <label class="field-label" for="encounterId">Encounter ID</label>
+              <input id="encounterId" class="input" value="demo-001" />
+
+              <label class="field-label" for="transcriptInput">Segments JSON</label>
+              <textarea id="transcriptInput" class="textarea code-input" spellcheck="false"></textarea>
+
+              <div class="button-row">
+                <button id="draftButton" class="button primary" type="button">Generate Draft</button>
+                <button id="clearButton" class="button secondary" type="button">Clear</button>
+              </div>
+              <p id="draftStatus" class="status-line"></p>
+            </section>
+
+            <section class="panel review-panel">
+              <div class="panel-heading">
+                <h3>Review</h3>
+                <div class="encounter-chip" id="activeEncounterChip">No encounter</div>
+              </div>
+
+              <div id="sectionsEditor" class="sections-editor empty-state">
+                No draft loaded.
+              </div>
+
+              <div class="review-footer">
+                <div>
+                  <label class="field-label" for="reviewerInput">Reviewer</label>
+                  <input id="reviewerInput" class="input" value="Reviewer" />
+                </div>
+                <div>
+                  <label class="field-label" for="reviewNotesInput">Review notes</label>
+                  <input id="reviewNotesInput" class="input" value="" />
+                </div>
+              </div>
+
+              <div class="button-row">
+                <button id="finalizeButton" class="button primary" type="button" disabled>Finalize</button>
+                <button id="exportMarkdownButton" class="button secondary" type="button" disabled>Markdown</button>
+                <button id="exportJsonButton" class="button secondary" type="button" disabled>JSON</button>
+              </div>
+            </section>
+          </div>
+
+          <section class="panel export-panel">
+            <div class="panel-heading">
+              <h3>Export</h3>
+              <button id="copyExportButton" class="button secondary" type="button">Copy</button>
+            </div>
+            <textarea id="exportOutput" class="textarea export-output" readonly></textarea>
+          </section>
+        </section>
+
+        <section id="encountersView" class="view">
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Saved Encounters</h3>
+              <button id="reloadEncountersButton" class="button secondary" type="button">Reload</button>
+            </div>
+            <div id="encounterList" class="encounter-list"></div>
+          </section>
+        </section>
+
+        <section id="settingsView" class="view">
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Runtime</h3>
+            </div>
+            <pre id="capabilitiesOutput" class="json-output"></pre>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="/assets/app.js"></script>
+  </body>
+</html>

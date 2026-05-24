@@ -1,5 +1,11 @@
 # API Notes
 
+## Product Workbench
+
+`GET /app`
+
+Serves the first-party browser workbench.
+
 ## Capabilities
 
 `GET /capabilities`

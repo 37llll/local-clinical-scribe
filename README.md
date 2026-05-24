@@ -8,7 +8,11 @@ recorded or streamed Chinese medical conversations into:
 - reviewable structured note drafts
 - evidence links back to source transcript spans
 
-Version `0.3.0` is the first public-ready release. It keeps the v0.2 product
+Version `0.4.0` adds the first complete product workbench at `/app`: draft from
+transcript JSON, edit structured sections, finalize the note, export
+Markdown/JSON, inspect saved encounters, and view runtime capability status.
+
+Version `0.3.0` was the first public-ready release. It keeps the v0.2 product
 loop and adds explicit repository safety guardrails: synthetic demo data only,
 public safety scanning, security policy, third-party notices, and release
 checklists.
@@ -34,6 +38,7 @@ clinical decisions without licensed clinician review.
 ## Current Capabilities
 
 - FastAPI backend with REST and WebSocket endpoints.
+- First-party browser workbench at `/app`.
 - Offline ASR endpoint for uploaded audio.
 - Streaming ASR/VAD WebSocket endpoints.
 - Speaker enrollment, listing, deletion, and verification.
@@ -84,6 +89,7 @@ python start_backend.py
 
 Open:
 
+- Product workbench: `http://localhost:63100/app`
 - API docs: `http://localhost:63100/docs`
 - Health check: `http://localhost:63100/health`
 - Runtime capabilities: `http://localhost:63100/capabilities`
@@ -175,9 +181,10 @@ Invoke-RestMethod `
   Markdown/JSON export.
 - `0.3.x`: public release readiness, safety scan, security docs, demo data
   policy.
-- `0.4.x`: clinician review UI and richer export templates.
-- `0.5.x`: evidence viewer, audit log, quality metrics.
-- `0.6.x`: optional LLM structuring with schema validation and citations.
-- `0.7.x`: FHIR-compatible export and integration hooks.
+- `0.4.x`: first-party browser workbench for draft, review, finalize, export.
+- `0.5.x`: richer export templates and DOCX.
+- `0.6.x`: evidence viewer, audit log, quality metrics.
+- `0.7.x`: optional LLM structuring with schema validation and citations.
+- `0.8.x`: FHIR-compatible export and integration hooks.
 
 See [docs/PRODUCT_PLAN.md](docs/PRODUCT_PLAN.md) for the working roadmap.

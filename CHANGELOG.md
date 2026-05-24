@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.0 - 2026-05-25
+
+- Added a first-party web workbench at `/app`.
+- Added transcript draft generation, section review editing, finalization,
+  Markdown/JSON export, encounter list, and runtime capability display in the
+  browser UI.
+- Served static product assets directly from FastAPI.
+- Updated app metadata to report the current product version.
+
 ## 0.3.1 - 2026-05-24
 
 - Fixed public CI lightweight dependency set by adding `python-multipart`.

@@ -28,6 +28,17 @@ def main():
         clinical_note.encounter_store = EncounterStore(tmp_dir)
         client = TestClient(app)
 
+        root_response = client.get("/")
+        assert root_response.status_code == 200
+        assert root_response.json()["app"] == "/app"
+
+        app_response = client.get("/app")
+        assert app_response.status_code == 200
+        assert "Local Clinical Scribe" in app_response.text
+
+        asset_response = client.get("/assets/app.js")
+        assert asset_response.status_code == 200
+
         draft_response = client.post("/api/clinical_note/from_transcript", json=payload)
         assert draft_response.status_code == 200
         draft_body = draft_response.json()

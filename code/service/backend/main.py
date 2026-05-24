@@ -3,12 +3,18 @@ FastAPI application entrypoint for Local Clinical Scribe.
 """
 
 import importlib
+from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
 
 from backend.api.clinical_note import router as clinical_note_router
 
+APP_VERSION = "0.4.0"
+SERVICE_DIR = Path(__file__).resolve().parents[1]
+WEB_DIR = SERVICE_DIR / "web"
 optional_router_errors = []
 
 app = FastAPI(
@@ -17,7 +23,7 @@ app = FastAPI(
         "Local-first clinical conversation transcription, speaker separation, "
         "and structured note drafting."
     ),
-    version="0.1.0",
+    version=APP_VERSION,
 )
 
 # 允许跨域，便于前端联调
@@ -32,6 +38,9 @@ app.add_middleware(
 
 # 注册路由
 app.include_router(clinical_note_router)
+
+if WEB_DIR.exists():
+    app.mount("/assets", StaticFiles(directory=str(WEB_DIR)), name="assets")
 
 
 def include_optional_router(module_name: str, capability: str):
@@ -64,11 +73,21 @@ async def root():
     """
     return {
         "message": "Local Clinical Scribe API",
-        "version": "0.1.0",
+        "version": APP_VERSION,
+        "app": "/app",
         "docs": "/docs",
         "health": "/health",
         "capabilities": "/capabilities",
     }
+
+
+@app.get("/app", include_in_schema=False)
+async def web_app():
+    """Serve the product workbench."""
+    index_path = WEB_DIR / "index.html"
+    if index_path.exists():
+        return FileResponse(index_path)
+    return RedirectResponse(url="/docs")
 
 
 @app.get("/health")
