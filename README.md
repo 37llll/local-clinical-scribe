@@ -8,7 +8,12 @@ recorded or streamed Chinese medical conversations into:
 - reviewable structured note drafts
 - evidence links back to source transcript spans
 
-Version `0.2.0` turns the first draft API into a small product loop:
+Version `0.3.0` is the first public-ready release. It keeps the v0.2 product
+loop and adds explicit repository safety guardrails: synthetic demo data only,
+public safety scanning, security policy, third-party notices, and release
+checklists.
+
+Version `0.2.0` turned the first draft API into a small product loop:
 transcription, deterministic clinical note drafting, local encounter storage,
 clinician finalization, and Markdown/JSON export. The note draft is never a
 diagnosis or final medical record. It is clinician-reviewed documentation
@@ -83,6 +88,12 @@ Open:
 - Health check: `http://localhost:63100/health`
 - Runtime capabilities: `http://localhost:63100/capabilities`
 
+Before public release or external sharing:
+
+```powershell
+python scripts/public_safety_scan.py
+```
+
 ## Configuration
 
 Useful environment variables:
@@ -120,6 +131,9 @@ GET /api/clinical_note/encounters/{encounter_id}/export?format=json
 ```
 
 ## Example: Draft From Transcript
+
+The example below is synthetic demo data and does not describe a real patient
+or clinician.
 
 ```json
 {
@@ -159,9 +173,11 @@ Invoke-RestMethod `
 - `0.1.x`: local transcription, speaker handling, deterministic note draft.
 - `0.2.x`: local encounter persistence, clinician review finalization,
   Markdown/JSON export.
-- `0.3.x`: clinician review UI and richer export templates.
-- `0.4.x`: evidence viewer, audit log, quality metrics.
-- `0.5.x`: optional LLM structuring with schema validation and citations.
-- `0.6.x`: FHIR-compatible export and integration hooks.
+- `0.3.x`: public release readiness, safety scan, security docs, demo data
+  policy.
+- `0.4.x`: clinician review UI and richer export templates.
+- `0.5.x`: evidence viewer, audit log, quality metrics.
+- `0.6.x`: optional LLM structuring with schema validation and citations.
+- `0.7.x`: FHIR-compatible export and integration hooks.
 
 See [docs/PRODUCT_PLAN.md](docs/PRODUCT_PLAN.md) for the working roadmap.

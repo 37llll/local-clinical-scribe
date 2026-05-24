@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  safety-and-smoke-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install lightweight test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install fastapi pydantic loguru httpx
+      - name: Public safety scan
+        run: python scripts/public_safety_scan.py
+      - name: Compile
+        run: python -m compileall -q code/service tests
+      - name: Smoke tests
+        run: |
+          python tests/test_clinical_note_draft.py
+          python tests/test_encounter_store.py
+          python tests/test_clinical_note_api.py

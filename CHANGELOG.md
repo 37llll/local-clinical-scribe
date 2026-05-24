@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.0 - 2026-05-24
+
+- Prepared repository for public visibility.
+- Added MIT license, security policy, third-party notices, and public release
+  checklist.
+- Added synthetic demo data policy.
+- Added tracked-file public safety scanner.
+- Added lightweight CI workflow for safety scan and smoke tests.
+- Removed stale local private-history refs and ignored local runtime artifacts
+  before publication.
+
 ## 0.2.0 - 2026-05-24
 
 - Added local encounter persistence under `data/encounters`.

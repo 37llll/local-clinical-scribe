@@ -10,6 +10,16 @@ This repository is designed to keep sensitive data out of Git.
 - logs containing PHI
 - downloaded model artifacts
 - access tokens or local environment files
+- private network addresses or internal deployment paths
+
+## Public Release Scan
+
+Run the tracked-file safety scanner before opening a pull request, publishing a
+release, or changing repository visibility:
+
+```powershell
+python scripts/public_safety_scan.py
+```
 
 ## Runtime Data
 

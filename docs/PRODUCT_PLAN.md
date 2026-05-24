@@ -25,12 +25,19 @@ workflow with transcript evidence and local data control.
 
 ## v0.3 Scope
 
+- Prepare the repository for public visibility.
+- Add release safety scanning.
+- Add security and third-party notices.
+- Define synthetic demo data policy.
+
+## v0.4 Scope
+
 - Build a clinician review UI.
 - Add editable sections in the browser.
 - Add DOCX export.
 - Add evidence viewer with segment playback hooks.
 
-## v0.4 Scope
+## v0.5 Scope
 
 - Add quality metrics:
   - ASR word/character error rate hooks.
@@ -38,14 +45,14 @@ workflow with transcript evidence and local data control.
   - clinician edit distance.
   - unsupported claim checks.
 
-## v0.5 Scope
+## v0.6 Scope
 
 - Add optional LLM-backed structuring.
 - Enforce JSON schema validation.
 - Require evidence ids for every generated statement.
 - Add "not mentioned" and "uncertain" handling.
 
-## v0.6 Scope
+## v0.7 Scope
 
 - Add FHIR-oriented export.
 - Add webhooks and API keys.
